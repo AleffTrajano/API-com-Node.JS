@@ -1,0 +1,39 @@
+-- MySQL Workbench Synchronization
+-- Generated: 2020-08-19 00:25
+-- Model: New Model
+-- Version: 1.0
+-- Project: Name of the project
+-- Author: Aleff
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+CREATE SCHEMA IF NOT EXISTS `ecommerce` DEFAULT CHARACTER SET utf8 ;
+
+CREATE TABLE IF NOT EXISTS `ecommerce`.`produto` (
+  `id_produto` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `preco` FLOAT(11) NOT NULL,
+  PRIMARY KEY (`id_produto`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `ecommerce`.`pedidos` (
+  `id_pedidos` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_produto` INT(11) NOT NULL,
+  `quantidade` SMALLINT(6) NOT NULL,
+  PRIMARY KEY (`id_pedidos`),
+  INDEX `fk_pedidos_produto_idx` (`id_produto` ASC) VISIBLE,
+  CONSTRAINT `fk_pedidos_produto`
+    FOREIGN KEY (`id_produto`)
+    REFERENCES `ecommerce`.`produto` (`id_produto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
